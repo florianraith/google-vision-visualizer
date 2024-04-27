@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Google Vision Visualizer</title>
     <style>
-      #annotation {
-          position: absolute;
-          top: 0;
-          left: 0;
-          max-width: 40vw;
-      }
+        #annotation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            max-width: 40vw;
+        }
     </style>
   </head>
   <body>
@@ -26,8 +26,30 @@
         <div class="col-md-6">
           <div class="row mb-2">
             <div class="col" x-data="mode">
-              <button class="btn btn-sm" :class="mode === 'text' ? 'btn-primary' : 'btn-secondary'" @click="changeMode('text')">Text</button>
-              <button class="btn btn-sm" :class="mode === 'full-text' ? 'btn-primary' : 'btn-secondary'" @click="changeMode('full-text')">Full Text</button>
+              <div class="btn-group">
+                <button class="btn btn-sm" :class="mode === 'text' ? 'btn-primary' : 'btn-secondary'" @click="changeMode('text')">Text</button>
+                <button class="btn btn-sm" :class="mode === 'full-text' ? 'btn-primary' : 'btn-secondary'" @click="changeMode('full-text')">Full Text</button>
+              </div>
+
+              <template x-if="mode === 'full-text'">
+                <div class="btn-group">
+                  <button
+                      x-text="cap(details[0])"
+                      class="btn btn-sm btn-secondary"
+                      :class="currentDetail === details[0] ? 'active' : ''"
+                      @click="changeDetail(details[0]);"
+                  ></button>
+                  <template x-for="detail in details.slice(1)">
+                    <button
+                        x-text="cap(detail)"
+                        class="btn btn-sm btn-secondary"
+                        :class="currentDetail === detail ? 'active' : ''"
+                        @click="changeDetail(detail);"
+                    ></button>
+                  </template>
+                </div>
+              </template>
+
             </div>
           </div>
 
@@ -36,9 +58,6 @@
       </div>
 
       <div id="annotation" style="display: none" class="bg-white border rounded p-2">
-        <div>
-          <b>Text</b>: <span id="text">-</span>
-        </div>
       </div>
     </main>
 

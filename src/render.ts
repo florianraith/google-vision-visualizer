@@ -4,6 +4,7 @@ export class Renderer {
 
   public readonly canvas: HTMLCanvasElement;
   public readonly context: CanvasRenderingContext2D;
+  private image: HTMLImageElement|null = null;
 
   constructor(canvasId: string) {
     this.canvas = document.getElementById(canvasId) as HTMLCanvasElement;
@@ -13,11 +14,20 @@ export class Renderer {
     this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
   }
 
-  public renderImage(image: HTMLImageElement) {
+  public setImage(image: HTMLImageElement) {
+    this.image = image;
     this.canvas.width = image.width;
     this.canvas.height = image.height;
 
-    this.context.drawImage(image, 0, 0);
+    this.clear();
+  }
+
+  public clear() {
+    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+    if (this.image) {
+      this.context.drawImage(this.image, 0, 0);
+    }
   }
 
   public renderBoundingPoly(poly: BoundingPoly, color: string): void {

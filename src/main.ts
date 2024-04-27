@@ -12,9 +12,26 @@ data.textAnnotations.forEach((annotation) => fixBoundingPoly(annotation.bounding
 
 document.getElementById('output')!.innerHTML = data.fullTextAnnotation.text;
 
-const visualizer = new Visualizer(data.textAnnotations);
+const visualizer = new Visualizer();
+visualizer.annotationMode(data.textAnnotations);
 visualizer.start();
 
 alpine.onChangeMode((mode) => {
+  if (mode === 'text') {
+    visualizer.annotationMode(data.textAnnotations);
+  } else if (mode === 'full-text') {
+    visualizer.pageMode(data.fullTextAnnotation.pages);
+  }
+});
 
+alpine.onChangeDetail((detail) => {
+  const detailToNumber: Record<string, number> = {
+    pages: Visualizer.PAGES,
+    blocks: Visualizer.BLOCKS,
+    paragraphs: Visualizer.PARAGRAPHS,
+    words: Visualizer.WORDS,
+    symbols: Visualizer.SYMBOLS,
+  };
+
+  visualizer.setDetail(detailToNumber[detail]);
 });
