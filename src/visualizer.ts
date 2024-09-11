@@ -5,7 +5,6 @@ import { Annotation, Page } from './types.ts';
 import { isInside, isSurrounding } from './utils.ts';
 
 export class Visualizer {
-
   private mode: 'none' | 'annotation' | 'page' = 'none';
   private mouseListener: MouseListener;
   private popover: Popover;
@@ -82,7 +81,7 @@ export class Visualizer {
     }
 
     if (hoveringAnnotation && hoveringAnnotation !== this.surroundingAnnotation) {
-      this.popover.setText({ 'text': hoveringAnnotation.description });
+      this.popover.setText({ text: hoveringAnnotation.description });
       this.popover.showAt(this.mouseListener.getMouse());
     } else {
       this.popover.hide();
@@ -114,7 +113,10 @@ export class Visualizer {
 
         for (const paragraph of block.paragraphs) {
           const insideParagraph = isInside(mouse, paragraph.boundingBox);
-          this.renderer.renderBoundingPoly(paragraph.boundingBox, this.leveledColor(Visualizer.PARAGRAPHS, insideParagraph));
+          this.renderer.renderBoundingPoly(
+            paragraph.boundingBox,
+            this.leveledColor(Visualizer.PARAGRAPHS, insideParagraph),
+          );
 
           if (this.detail === Visualizer.PARAGRAPHS && insideParagraph) {
             this.popover.showParagraphAt(this.mouseListener.getMouse(), paragraph);
@@ -169,5 +171,4 @@ export class Visualizer {
 
     return surroundingAnnotation;
   }
-
 }

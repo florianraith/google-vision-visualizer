@@ -7,12 +7,7 @@ document.addEventListener('alpine:init', () => {
   Alpine.data('mode', () => ({
     mode: 'text',
     currentDetail: 'blocks',
-    details: [
-      'blocks',
-      'paragraphs',
-      'words',
-      'symbols',
-    ],
+    details: ['blocks', 'paragraphs', 'words', 'symbols'],
     changeMode(mode: string) {
       this.mode = mode;
       this.currentDetail = 'blocks';

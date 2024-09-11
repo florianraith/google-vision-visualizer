@@ -1,10 +1,9 @@
 import { BoundingPoly } from './types.ts';
 
 export class Renderer {
-
   public readonly canvas: HTMLCanvasElement;
   public readonly context: CanvasRenderingContext2D;
-  private image: HTMLImageElement|null = null;
+  private image: HTMLImageElement | null = null;
 
   constructor(canvasId: string) {
     this.canvas = document.getElementById(canvasId) as HTMLCanvasElement;
@@ -46,5 +45,4 @@ export class Renderer {
     this.context.lineTo(firstVertex.x, firstVertex.y);
     this.context.stroke();
   }
-
 }

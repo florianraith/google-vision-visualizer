@@ -1,4 +1,5 @@
 # Google Vision Visualizer
+
 Visualize the OCR results of the [Google Vision API](https://cloud.google.com/vision?hl=en)
 
 wip

@@ -1,7 +1,6 @@
 import { Vertex } from './types.ts';
 
 export class MouseListener {
-
   private mouseX = 0;
   private mouseY = 0;
 
@@ -32,5 +31,4 @@ export class MouseListener {
 
     return { x: mouseX, y: mouseY };
   }
-
 }

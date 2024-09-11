@@ -11,8 +11,7 @@ export function isInside(vertex: Vertex, poly: BoundingPoly): boolean {
     const xj = vertices[j].x;
     const yj = vertices[j].y;
 
-    const intersect = ((yi > y) !== (yj > y)) &&
-      (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
+    const intersect = yi > y !== yj > y && x < ((xj - xi) * (y - yi)) / (yj - yi) + xi;
 
     if (intersect) {
       inside = !inside;

@@ -1,7 +1,6 @@
 import { Block, Paragraph, Property, Symbol, Vertex, Word } from './types.ts';
 
 export class Popover {
-
   private element: HTMLElement;
 
   constructor(elementId: string) {
@@ -20,11 +19,16 @@ export class Popover {
   }
 
   public setText(text: Record<string, any>) {
-    this.element.innerHTML = Object.keys(text).map(key => `<b>${key}</b>: ${text[key]}`).join('<br>');
+    this.element.innerHTML = Object.keys(text)
+      .map((key) => `<b>${key}</b>: ${text[key]}`)
+      .join('<br>');
   }
 
   public showBlockAt(position: Vertex, block: Block) {
-    let text: Record<string, any> = { 'blockType': block.blockType, '#paragraphs': block.paragraphs.length };
+    let text: Record<string, any> = {
+      blockType: block.blockType,
+      '#paragraphs': block.paragraphs.length,
+    };
 
     if (block.property) {
       text = { ...text, ...this.propertyToString(block.property) };
@@ -54,7 +58,7 @@ export class Popover {
   }
 
   public showWordAt(position: Vertex, word: Word) {
-    let text: Record<string, any> = { 'text': word.symbols.map(symbol => symbol.text).join('') };
+    let text: Record<string, any> = { text: word.symbols.map((symbol) => symbol.text).join('') };
 
     if (word.property) {
       text = { ...text, ...this.propertyToString(word.property) };
@@ -69,7 +73,7 @@ export class Popover {
   }
 
   public showSymbolAt(position: Vertex, symbol: Symbol) {
-    let text: Record<string, any> = { 'text': symbol.text };
+    let text: Record<string, any> = { text: symbol.text };
 
     if (symbol.property) {
       text = { ...text, ...this.propertyToString(symbol.property) };
@@ -87,7 +91,9 @@ export class Popover {
     let text: { [key: string]: string } = {};
 
     if (property.detectedLanguages) {
-      text['languages'] = property.detectedLanguages.map(language => `${language.languageCode} (${(language.confidence * 100).toFixed(2)}%)`).join(', ');
+      text['languages'] = property.detectedLanguages
+        .map((language) => `${language.languageCode} (${(language.confidence * 100).toFixed(2)}%)`)
+        .join(', ');
     }
 
     if (property.detectedBreak) {
@@ -96,6 +102,4 @@ export class Popover {
 
     return text;
   }
-
-
 }
